@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import City, Category, TouristPoint
-from .serializers import CitySerializer, CategorySerializer, TouristPointSerializer
+from .models import City, Category, TouristPoint, Favorite
+from .serializers import CitySerializer, CategorySerializer, TouristPointSerializer, FavoriteSerializer
 
 # Create your views here.
 class CityViewSet(viewsets.ModelViewSet):
@@ -15,3 +15,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class TouristPointViewSet(viewsets.ModelViewSet):
     queryset = TouristPoint.objects.all()
     serializer_class = TouristPointSerializer
+
+class FavoriteViewSet(viewsets.ModelViewSet):
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer
