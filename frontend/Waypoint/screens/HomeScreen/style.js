@@ -1,90 +1,113 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
+container: {
         flex: 1,
-        backgroundColor: '#0F1115',
-        padding: 20,
+        backgroundColor: '#1C2025',
+        paddingTop: 50,
+        paddingHorizontal: 15,
     },
-    greeting: {
-        color: 'white',
-        fontSize: 18,
-        fontWeight: 'bold',
-    }, subGreeting: {
-        color: 'gray',
-        fontSize: 14,
+header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
-    locationContainer: {
+welcome: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '600',
+    },
+subtitle: {
+        color: '#aaa',
+        fontSize: 12,
+    },
+location: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 5,
+        marginTop: 4,
     },
-    locationText: {
-        color: '#ccc',
-        marginLeft: 5,
+locationText: {
+        color: '#aaa',
+        marginLeft: 4,
+        fontSize: 12,
     },
-    searchBar: {
-        backgroundColor: '#1C1E22',
-        borderRadius: 20,
-        padding: 10,
+searchBar: {
+        backgroundColor: '#2D2F3A',
+        borderRadius: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 10,
         marginTop: 20,
-        color: 'white',
+        height: 40,
     },
-    sectionTitle: {
-        color: 'white',
+searchInput: {
+        marginLeft: 8,
+        color: '#fff',
+        flex: 1,
+    },
+sectionTitle: {
+        color: '#fff',
         fontSize: 16,
         marginTop: 20,
         marginBottom: 10,
     },
-    categoriesContainer: {
+categories: {
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    categoryBox: {
+categoryBox: {
         width: 50,
         height: 50,
-        backgroundColor: '#1C1E22',
+        backgroundColor: '#2D2F3A',
         borderRadius: 10,
     },
-    recommendedHeader: {
+recommendedHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginTop: 20,
     },
-    seeAllText: {
-        color: '#aaa',
+seeAll: {
+        color: '#B5838D',
         fontSize: 12,
     },
-    image: {
-        width: 150,
-        height: 100,
-        borderRadius: 10,
-        marginRight: 10,
+recommendedScroll: {
         marginTop: 10,
     },
-    addButton: {
+recommendedImage: {
+        width: 160,
+        height: 120,
+        borderRadius: 10,
+        marginRight: 15,
+    },
+addButton: {
         marginTop: 20,
-        backgroundColor: '#1C1E22',
-        borderRadius: 20,
-        padding: 10,
-        flexDirection: 'row',
-        justifyContent: 'center',
         alignItems: 'center',
     },
-    addText: {
-        color: '#F66',
-        marginRight: 8,
+addText: {
+        color: '#B5838D',
+        marginBottom: 10,
     },
-    navbar: {
+plusCircle: {
+        backgroundColor: '#2D2F3A',
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+plus: {
+        color: '#fff',
+        fontSize: 24,
+    },
+bottomNav: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingVertical: 15,
-        backgroundColor: '#1C1E22',
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
+        backgroundColor: '#2D2F3A',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        marginTop: 20,
     },
 });
 

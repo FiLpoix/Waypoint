@@ -1,27 +1,30 @@
 import React from 'react';
-import { View, Text, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import styles from './style';
+import { View, Text, TextInput, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import styles from './style'
 
-export default function(){
+export default function({navigation}) {
   return (
     <View style={styles.container}>
-      <Text style={styles.greeting}>Hello, User!</Text>
-      <Text style={styles.subGreeting}>Explore new locations!</Text>
-
-      <View style={styles.locationContainer}>
-        <Ionicons name="location-outline" size={16} color="#aaa" />
-        <Text style={styles.locationText}>Teresina, Piauí</Text>
+      <View style={styles.header}>
+        <View>
+          <Text style={styles.welcome}>Hello, User!</Text>
+          <Text style={styles.subtitle}>Explore new locations!</Text>
+          <View style={styles.location}>
+            <Ionicons name="location-outline" size={16} color="#aaa" />
+            <Text style={styles.locationText}>Teresina, Piauí</Text>
+          </View>
+        </View>
+        <Ionicons name="person-circle-outline" size={32} color="#fff" />
       </View>
 
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Search"
-        placeholderTextColor="#666"
-      />
+      <View style={styles.searchBar}>
+        <Ionicons name="search" size={20} color="#aaa" />
+        <TextInput placeholder="Search..." placeholderTextColor="#aaa" style={styles.searchInput} />
+      </View>
 
       <Text style={styles.sectionTitle}>Categories</Text>
-      <View style={styles.categoriesContainer}>
+      <View style={styles.categories}>
         {[...Array(5)].map((_, index) => (
           <View key={index} style={styles.categoryBox} />
         ))}
@@ -29,31 +32,32 @@ export default function(){
 
       <View style={styles.recommendedHeader}>
         <Text style={styles.sectionTitle}>Recommended</Text>
-        <TouchableOpacity>
-          <Text style={styles.seeAllText}>See all</Text>
+        <TouchableOpacity onPress={()=>navigation.navigate('Cities')}>
+          <Text style={styles.seeAll}>See all</Text>
         </TouchableOpacity>
       </View>
-
-      <ScrollView horizontal>
-        {[...Array(2)].map((_, index) => (
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.recommendedScroll}>
+        {[...Array(5)].map((_, index) => (
           <Image
             key={index}
-            style={styles.image}
-            source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/Arc_de_Triomphe%2C_Paris_21_October_2010.jpg' }}
+            source={require('../../assets/arc.jpg')} // coloque sua imagem aqui
+            style={styles.recommendedImage}
           />
         ))}
       </ScrollView>
 
       <TouchableOpacity style={styles.addButton}>
         <Text style={styles.addText}>Adicione um ponto turístico!!</Text>
-        <Ionicons name="add-circle-outline" size={24} color="white" />
+        <View style={styles.plusCircle}>
+          <Text style={styles.plus}>+</Text>
+        </View>
       </TouchableOpacity>
 
-      <View style={styles.navbar}>
-        <Ionicons name="home-outline" size={28} color="white" />
-        <Ionicons name="heart-outline" size={28} color="white" />
-        <Ionicons name="happy-outline" size={28} color="white" />
+      <View style={styles.bottomNav}>
+        <Ionicons name="home" size={24} color="#fff" />
+        <Ionicons name="heart-outline" size={24} color="#fff" />
+        <Ionicons name="happy-outline" size={24} color="#fff" />
       </View>
     </View>
   );
-};
+}
