@@ -1,6 +1,12 @@
 from django.urls import reverse
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 from .models import City, Category, TouristPoint, Favorite
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ['id', 'username', 'email']
 
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
