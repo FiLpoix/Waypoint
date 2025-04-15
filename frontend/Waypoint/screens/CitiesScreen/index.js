@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, Image, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import styles from './style';
+import api from '../../services/api';
 
 const data = [
   { name: 'Coliseum', image: require('../../assets/coliseum.jpg') },
@@ -11,6 +12,7 @@ const data = [
 ];
 
 export default function({navigation}) {
+
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>

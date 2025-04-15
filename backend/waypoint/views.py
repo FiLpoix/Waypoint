@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated 
 from .models import City, Category, TouristPoint, Favorite
 from .serializers import CitySerializer, CategorySerializer, TouristPointSerializer, FavoriteSerializer
 

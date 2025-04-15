@@ -51,21 +51,31 @@ sectionTitle: {
         marginTop: 20,
         marginBottom: 10,
     },
-categories: {
+    categories: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-    },
-categoryBox: {
-        width: 50,
-        height: 50,
-        backgroundColor: '#2D2F3A',
-        borderRadius: 10,
-    },
+        marginTop: 15,
+      },
+      categoryBox: {
+        alignItems: 'center',
+        width: 100,
+      },
+      categoryImage: {
+        width: 75,
+        height: 75,
+        borderRadius: 50,
+        marginBottom: 5,
+      },
+      categoryText: {
+        fontSize: 15,
+        color: '#fff',
+        textAlign: 'center',
+      },
 recommendedHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 20,
+
     },
 seeAll: {
         color: '#B5838D',
