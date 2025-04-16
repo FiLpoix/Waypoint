@@ -5,7 +5,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .auth_views import register_user, login_user
 
 router = DefaultRouter()
-router.register(r'citys', CityViewSet)
+router.register(r'cities', CityViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'tourist_points', TouristPointViewSet)
 router.register(r'favorites', FavoriteViewSet)

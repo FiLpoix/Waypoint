@@ -11,6 +11,9 @@ class City(models.Model):
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
 class Category(models.Model):
     tipo_choices = [
         ('festival', 'Festival'),
@@ -20,6 +23,9 @@ class Category(models.Model):
     tipo = models.CharField(max_length=50, choices=tipo_choices, unique=True, blank=True, null=True)
     name = models.CharField(max_length=100)
     icon = models.ImageField(upload_to='category_icons/', blank=True, null=True)
+
+    def __str__(self):
+        return self.tipo
 
 class TouristPoint(models.Model):
     title = models.CharField(max_length=100)

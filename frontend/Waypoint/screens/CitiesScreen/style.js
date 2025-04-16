@@ -42,6 +42,11 @@ const styles = StyleSheet.create({
       color: '#fff',
       padding: 10,
     },
+    cardSubText: {
+      color: '#aaa',
+      paddingLeft: 10,
+      paddingBottom: 10,
+    },
     bottomNav: {
       flexDirection: 'row',
       justifyContent: 'space-around',

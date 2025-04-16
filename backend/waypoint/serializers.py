@@ -26,6 +26,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class TouristPointSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
+    city = CitySerializer(read_only=True)
 
     class Meta:
         model = TouristPoint
