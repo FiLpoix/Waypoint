@@ -3,37 +3,27 @@ import { View, Text, Image, TextInput, ScrollView, TouchableOpacity } from 'reac
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import styles from './style';
 import api from '../../services/api';
-
+import BottomNav from '../../components/BottomNav';
 
 export default function({navigation}) {
   const [points, setPoints] = useState([]);
-  const [filteredPoints, setFilteredPoints] = useState([]);
-  const [cityFilter, setCityFilter] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchPoints() {
+    const fetchPoints = async () => {
       try {
         const response = await api.get('/tourist_points');
         setPoints(response.data);
-      } catch (error) {
-        console.error('Error fetching points:', error);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
 
     fetchPoints();
   }, []);
-
-  console.log(points[0].city?.name)
-  useEffect(() => {
-    if (cityFilter.trim() === '') {
-      setFilteredPoints(points);
-    } else {
-      const filtered = points.filter(point =>
-        (point.city?.name || '').toLowerCase().includes(cityFilter.toLowerCase())
-      );
-      setFilteredPoints(filtered);
-    }
-  }, [cityFilter, points]);
 
   return (
     <View style={styles.container}>
@@ -42,33 +32,33 @@ export default function({navigation}) {
           placeholder="Filtrar por cidade"
           placeholderTextColor="#999"
           style={styles.searchInput}
-          value={cityFilter}
-          onChangeText={setCityFilter}
         />
+
         <Ionicons name="menu" size={24} color="#fff" />
       </View>
 
-      <ScrollView contentContainerStyle={styles.cardContainer}>
-        {filteredPoints.map((item) => (
-          <View style={styles.card} key={item.id}>
-            <Image source={{ uri: item.image_url }} style={styles.cardImage} />
-            <Text style={styles.cardText}>{item.title}</Text>
-            <Text style={styles.cardSubText}>{item.city?.name}</Text>
-          </View>
-        ))}
+      <ScrollView showsHorizontalScrollIndicator={false} style={styles.gallery}>
+      <View style={styles.cardContainer}>
+        {loading ? (
+          <Text style={styles.loadingText}>Carregando...</Text>
+        ) : error ? (
+          <Text style={styles.errorText}>Erro: {error}</Text>
+        ) : (
+          points.map((point) => (
+        <TouchableOpacity
+          key={point.id} 
+          style={styles.card}
+          onPress={() => navigation.navigate('PointDetails', { point: point })}
+        >
+          <Image source={{ uri: point.image_url }} style={styles.cardImage} />
+          <Text style={styles.cardTitle}>{point.title}</Text>
+        </TouchableOpacity>
+          ))
+        )}
+        </View>
       </ScrollView>
 
-      <View style={styles.bottomNav}>
-        <TouchableOpacity onPress={()=>navigation.navigate('Home')}>
-          <Ionicons name="home" size={28} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons name="heart" size={28} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons name="happy" size={28} color="#fff" />
-        </TouchableOpacity>
-      </View>
+      <BottomNav navigation={navigation} />
     </View>
   );
 }

@@ -34,6 +34,30 @@ const styles = StyleSheet.create({
       marginBottom: 15,
       overflow: 'hidden',
     },
+    cardTitle: {
+      color: '#fff',
+      fontSize: 16,
+      fontWeight: 'bold',
+      padding: 10,
+    },
+    loadingText: {
+      color: '#fff',
+      textAlign: 'center',
+      marginTop: 20,
+    },
+    errorText: {
+      color: '#ff0000',
+      textAlign: 'center',
+      marginTop: 20,
+    },
+    gallery: {
+      marginBottom: 20,
+    },
+    cardContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+    },
     cardImage: {
       width: '100%',
       height: 150,

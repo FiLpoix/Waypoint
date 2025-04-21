@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Image, TouchableOpacity, ScrollView, FlatList
-} from "react-native";
+import { View, Text, TextInput, Image, TouchableOpacity, ScrollView, FlatList } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import styles from "./style";
 import api from "../../services/api";
+import BottomNav from "../../components/BottomNav";
 
 export default function ({ navigation }) {
   const [points, setPoints] = useState([]);
@@ -108,11 +108,7 @@ export default function ({ navigation }) {
         </View>
       </TouchableOpacity>
 
-      <View style={styles.bottomNav}>
-        <Ionicons name="home" size={24} color="#fff" />
-        <Ionicons name="heart-outline" size={24} color="#fff" />
-        <Ionicons name="happy-outline" size={24} color="#fff" />
-      </View>
+      <BottomNav />
     </View>
   );
 }

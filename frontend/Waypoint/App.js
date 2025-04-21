@@ -5,6 +5,7 @@ import HomeScreen from './screens/HomeScreen/index';
 import CitiesScreen from './screens/CitiesScreen/index';
 import RegisterScreen from './screens/RegisterScreen/index'
 import LoginScreen from './screens/LoginScreen'
+import PointDetails from './screens/PointDetails/index';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ export default function App() {
         <Stack.Screen name="Cities" component={CitiesScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="PointDetails" component={PointDetails} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
