@@ -6,6 +6,8 @@ import CitiesScreen from './screens/CitiesScreen/index';
 import RegisterScreen from './screens/RegisterScreen/index'
 import LoginScreen from './screens/LoginScreen'
 import PointDetails from './screens/PointDetails/index';
+import AddCategories from './screens/AddCategories';
+import AddPointScreen from './screens/AddPoint/index';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +20,8 @@ export default function App() {
         <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
         <Stack.Screen name="PointDetails" component={PointDetails} options={{headerShown: false}}/>
+        <Stack.Screen name="AddCategories" component={AddCategories} options={{headerShown: false}}/>
+        <Stack.Screen name="AddPoint" component={AddPointScreen} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

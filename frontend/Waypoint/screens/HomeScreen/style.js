@@ -71,6 +71,15 @@ sectionTitle: {
         color: '#fff',
         textAlign: 'center',
       },
+      addCategoryBox: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+        borderRadius: 10,
+        marginRight: 10,
+        width: 90,
+        height: 90,
+      },
 recommendedHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',

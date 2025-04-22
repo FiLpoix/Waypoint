@@ -66,21 +66,34 @@ export default function ({ navigation }) {
 
       <Text style={styles.sectionTitle}>Categories</Text>
       <FlatList
-        horizontal
-        data={categories}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.categoryBox}>
-            <Image
-              source={{ uri: item.icon }}
-              style={styles.categoryImage}
-            />
-            <Text style={styles.categoryText}>{item.tipo}</Text>
-          </TouchableOpacity>
-        )}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.categories}
-      />
+  horizontal
+  data={[...categories, { id: 'add', tipo: 'Adicionar', isAddButton: true }]}
+  keyExtractor={(item) => item.id.toString()}
+  renderItem={({ item }) => {
+    if (item.isAddButton) {
+      return (
+        <TouchableOpacity
+          style={[styles.categoryBox, styles.addCategoryBox]}
+          onPress={() => navigation.navigate('AddCategories')}
+        >
+          <Ionicons name="add-circle-outline" size={32} color="#fff" />
+        </TouchableOpacity>
+      );
+    }
+
+    return (
+      <TouchableOpacity style={styles.categoryBox}>
+        <Image
+          source={{ uri: item.icon }}
+          style={styles.categoryImage}
+        />
+        <Text style={styles.categoryText}>{item.tipo}</Text>
+      </TouchableOpacity>
+    );
+  }}
+  showsHorizontalScrollIndicator={false}
+  contentContainerStyle={styles.categories}
+/>
       <View style={styles.recommendedHeader}>
         <Text style={styles.sectionTitle}>Recommended</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Cities")}>
@@ -104,7 +117,7 @@ export default function ({ navigation }) {
       <TouchableOpacity style={styles.addButton}>
         <Text style={styles.addText}>Adicione um ponto turístico!!</Text>
         <View style={styles.plusCircle}>
-          <Text style={styles.plus}>+</Text>
+          <Text style={styles.plus} onPress={() => navigation.navigate("AddPoint")}>+</Text>
         </View>
       </TouchableOpacity>
 
