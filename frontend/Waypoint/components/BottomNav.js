@@ -5,12 +5,12 @@ import { Ionicons } from '@expo/vector-icons';
 const BottomNav = ({navigation})=>{
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate("Home")}>
                 <Ionicons name="home" size={24} color="#fff" />
                 <Text style={styles.navText}>Home</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.navItem}>
-                <Ionicons name="heart" size={24} color="#fff" />
+                <Ionicons name="heart" size={24} color="#fff" onPress={() => navigation.navigate("Favorite")} />
                 <Text style={styles.navText}>Favorites</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.navItem}>

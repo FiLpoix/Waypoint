@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Alert,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
+import {View, Text, TextInput, Alert, TouchableOpacity, Image, StyleSheet, ScrollView, } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import api from '../../services/api';

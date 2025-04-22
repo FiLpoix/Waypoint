@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Image, TouchableOpacity, ScrollView, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+} from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import styles from "./style";
 import api from "../../services/api";
@@ -66,34 +74,20 @@ export default function ({ navigation }) {
 
       <Text style={styles.sectionTitle}>Categories</Text>
       <FlatList
-  horizontal
-  data={[...categories, { id: 'add', tipo: 'Adicionar', isAddButton: true }]}
-  keyExtractor={(item) => item.id.toString()}
-  renderItem={({ item }) => {
-    if (item.isAddButton) {
-      return (
-        <TouchableOpacity
-          style={[styles.categoryBox, styles.addCategoryBox]}
-          onPress={() => navigation.navigate('AddCategories')}
-        >
-          <Ionicons name="add-circle-outline" size={32} color="#fff" />
-        </TouchableOpacity>
-      );
-    }
-
-    return (
-      <TouchableOpacity style={styles.categoryBox}>
-        <Image
-          source={{ uri: item.icon }}
-          style={styles.categoryImage}
-        />
-        <Text style={styles.categoryText}>{item.tipo}</Text>
-      </TouchableOpacity>
-    );
-  }}
-  showsHorizontalScrollIndicator={false}
-  contentContainerStyle={styles.categories}
-/>
+        horizontal
+        data={[...categories]}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity style={styles.categoryBox}>
+              <Image source={{ uri: item.icon }} style={styles.categoryImage} />
+              <Text style={styles.categoryText}>{item.tipo}</Text>
+            </TouchableOpacity>
+          );
+        }}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.categories}
+      />
       <View style={styles.recommendedHeader}>
         <Text style={styles.sectionTitle}>Recommended</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Cities")}>
@@ -105,23 +99,20 @@ export default function ({ navigation }) {
         showsHorizontalScrollIndicator={false}
         style={styles.recommendedScroll}
       >
-        {points.map((item) => (
-          <Image
-            key={item.id}
-            source={{ uri: item.image_url }}
-            style={styles.recommendedImage}
-          />
+        {points.map((point) => (
+          <TouchableOpacity
+            key={point.id}
+            onPress={() => navigation.navigate("PointDetails", { point })}
+          >
+            <Image
+              source={{ uri: point.image_url }}
+              style={styles.recommendedImage}
+            />
+          </TouchableOpacity>
         ))}
       </ScrollView>
 
-      <TouchableOpacity style={styles.addButton}>
-        <Text style={styles.addText}>Adicione um ponto turístico!!</Text>
-        <View style={styles.plusCircle}>
-          <Text style={styles.plus} onPress={() => navigation.navigate("AddPoint")}>+</Text>
-        </View>
-      </TouchableOpacity>
-
-      <BottomNav />
+      <BottomNav navigation={navigation} />
     </View>
   );
 }

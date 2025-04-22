@@ -4,11 +4,12 @@ import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import BottomNav from "../../components/BottomNav";
 import styles from "./style";
 
-const PointDetails = ({ route }) => {
+const PointDetails = ({ route, navigation }) => {
   const { point } = route.params;
   const [liked, setLiked] = useState(false);
 
   const toggleLike = () => {
+    console.log(point)
     setLiked(!liked);
   };
 
@@ -41,7 +42,7 @@ const PointDetails = ({ route }) => {
 
     </ScrollView>
 
-      <BottomNav />
+      <BottomNav navigation={navigation} />
     </View>
   );
 };
