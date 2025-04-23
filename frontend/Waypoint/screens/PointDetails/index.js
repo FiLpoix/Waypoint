@@ -1,16 +1,81 @@
-import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, } from "react-native";
+import React, {useState, useEffect} from "react";
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomNav from "../../components/BottomNav";
 import styles from "./style";
+import api from "../../services/api";
 
 const PointDetails = ({ route, navigation }) => {
   const { point } = route.params;
   const [liked, setLiked] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState(null);
 
-  const toggleLike = () => {
-    console.log(point)
-    setLiked(!liked);
+  useEffect(() => {
+    const checkFavoriteStatus = async () => {
+      try {
+        const token = await AsyncStorage.getItem('access_token');
+        const user = await AsyncStorage.getItem('user_id'); // Assumindo que você armazena o ID do usuário
+        
+        if (token && user) {
+          setUserId(user);
+          // Você pode fazer uma requisição aqui para verificar se o ponto já está favoritado
+          // e atualizar o estado 'liked' de acordo
+        }
+      } catch (error) {
+        console.log('Erro ao verificar favoritos:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    checkFavoriteStatus();
+  }, []);
+
+  const toggleLike = async () => {
+    if (loading) return
+
+    setLoading(true);
+
+    try {
+        const token = await AsyncStorage.getItem('access_token');
+        const user = await AsyncStorage.getItem('user_id');
+
+        if (!token || !user) {
+          Alert.alert('Erro', 'Usuário não autenticado');
+          return;
+        }
+
+        if (!liked) {
+          // Adicionar aos favoritos
+          const response = await api.post('/favorites/', {
+            tourist_point: point.id,
+            user: user // Adicionando o ID do usuário
+          }, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setLiked(response.data);
+          console.log('Dados recebidos:', response.data);
+          Alert.alert('Sucesso', 'Ponto favoritado com sucesso!')
+        } else {
+          // Remover dos favoritos (opcional)
+          // Você precisaria do ID do favorito para deletar
+          const response = await api.delete(`/favorites/${favoriteId}/`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setLiked(false);
+        }
+    } catch (error) {
+      console.log('Erro ao favoritar ponto:', error.response?.data || error.message);
+      Alert.alert('Erro', 'Não foi possivel favoritar')
+    } finally { 
+      setLoading(false);
+    }
   };
 
   return (

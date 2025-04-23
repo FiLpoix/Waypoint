@@ -1,17 +1,39 @@
-import React, {useState, useEffect} from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
-import styles from './RegisterScreen/style'
-import api from '../services/api'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
+import styles from "./RegisterScreen/style";
+import api from "../services/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { jwtDecode } from "jwt-decode"; // Importação corrigida
 
 export default function LoginScreen({ navigation }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const decodeToken = (token) => {
+    try {
+      // Verificação adicional para garantir que o token é válido
+      if (!token || typeof token !== 'string') {
+        throw new Error("Token inválido");
+      }
+      return jwtDecode(token);
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return null;
+    }
+  };
 
   const handleLogin = async () => {
     if (!username || !password) {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos.');
+      Alert.alert("Erro", "Por favor, preencha todos os campos.");
       return;
     }
 
@@ -21,55 +43,89 @@ export default function LoginScreen({ navigation }) {
         username,
         password,
       });
+      
       if (response.status === 200) {
         const { access, refresh } = response.data;
+        console.log("Token recebido:", access); // Para debug
 
-        await AsyncStorage.setItem('access_token', access);
-        await AsyncStorage.setItem('refresh_token', refresh);
-        await AsyncStorage.setItem('username', username)
-        console.log('Tokens salvos:', access, refresh);
+        if (!access) {
+          throw new Error("Token de acesso não recebido");
+        }
 
+        const decodedToken = decodeToken(access);
+        console.log("Token decodificado:", decodedToken); // Para debug
 
-        navigation.navigate('Home');
+        // Verificação alternativa para obter o user_id
+        const userId = decodedToken?.user_id || decodedToken?.sub;
+        if (!userId) {
+          throw new Error("ID do usuário não encontrado no token");
+        }
+
+        await AsyncStorage.multiSet([
+          ["access_token", access],
+          ["refresh_token", refresh],
+          ["username", username],
+          ["user_id", userId.toString()],
+        ]);
+
+        navigation.navigate("Home");
       } else {
-        Alert.alert('Erro', 'Login falhou. Verifique suas credenciais.');
+        Alert.alert("Erro", response.data?.detail || "Login falhou. Verifique suas credenciais.");
       }
     } catch (error) {
-      Alert.alert('Erro', 'Ocorreu um erro ao tentar fazer login.');
-      console.error('Error during login:', error);
+      console.error("Full error:", error);
+      Alert.alert(
+        "Erro", 
+        error.response?.data?.detail || error.message || "Ocorreu um erro ao tentar fazer login."
+      );
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <View style={styles.container}>
-
-      <Image source={require('../assets/logo.png')} style={styles.logo} />
+      <Image source={require("../assets/logo.png")} style={styles.logo} />
       <Text style={styles.title}>Login To</Text>
       <Text style={styles.title}>Your Account</Text>
 
       <Text style={styles.label}>Usuário:</Text>
-      <TextInput style={styles.input} placeholder="Digite seu nome"
+      <TextInput
+        style={styles.input}
+        placeholder="Digite seu nome"
         placeholderTextColor="#888"
         value={username}
-        onChangeText={setUsername} />
+        onChangeText={setUsername}
+        autoCapitalize="none"
+      />
 
       <Text style={styles.label}>Password:</Text>
-      <TextInput style={styles.input} placeholder="Digite sua senha"
+      <TextInput
+        style={styles.input}
+        placeholder="Digite sua senha"
         placeholderTextColor="#888"
         secureTextEntry
         value={password}
-        onChangeText={setPassword} />
+        onChangeText={setPassword}
+      />
 
       <View style={styles.signInText}>
-        <Text style={{ color: '#fff' }}>Already have an account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-          <Text style={{ color: '#B5838D', marginLeft: 5 }}>Sign Up</Text>
+        <Text style={{ color: "#fff" }}>Already have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+          <Text style={{ color: "#B5838D", marginLeft: 5 }}>Sign Up</Text>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.registerButton} onPress={handleLogin} >
-        <Text style={styles.registerText}>LOGIN</Text>
+      <TouchableOpacity
+        style={styles.registerButton}
+        onPress={handleLogin}
+        disabled={loading}
+      >
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.registerText}>LOGIN</Text>
+        )}
       </TouchableOpacity>
     </View>
   );
