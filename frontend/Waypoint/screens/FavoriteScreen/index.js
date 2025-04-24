@@ -1,28 +1,70 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, StyleSheet, Alert } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomNav from '../../components/BottomNav';
+import api from '../../services/api';
 
 const FavoriteScreen = ({navigation}) => {
-    const favoritePoints = [
-        { id: '1', name: 'Point A' },
-        { id: '2', name: 'Point B' },
-        { id: '3', name: 'Point C' },
-    ];
+    const [favoritePoints, setFavoritePoints] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [userId, setUserId] = useState(null);
 
-    const renderFavoriteItem = ({ item }) => (
-        <View style={styles.itemContainer}>
-            <Text style={styles.itemText}>{item.name}</Text>
-        </View>
-    );
+
+    useEffect(() => {
+        const checkFavoriteStatus = async () => {
+          try {
+            const token = await AsyncStorage.getItem('access_token');
+            const user = await AsyncStorage.getItem('user_id'); // Assumindo que você armazena o ID do usuário
+            
+            if (token && user) {
+              setUserId(user);
+              // Você pode fazer uma requisição aqui para verificar se o ponto já está favoritado
+              // e atualizar o estado 'liked' de acordo
+            }
+          } catch (error) {
+            console.log('Erro ao verificar favoritos:', error);
+          } finally {
+            setLoading(false);
+          }
+        };
+        
+        checkFavoriteStatus();
+      }, []);
+
+      useEffect(() => {
+      const fetchFavorites = async () => {
+        setLoading(true);
+    
+        try {
+            const token = await AsyncStorage.getItem('access_token');
+            const user = await AsyncStorage.getItem('user_id');
+    
+            if (!token || !user) {
+              Alert.alert('Erro', 'Usuário não autenticado');
+              return;
+            }
+
+            const response = await api.get('/favorites/', {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+              setFavoritePoints(response.data);
+              console.log('Dados recebidos:', response.data);
+            } catch (error) {
+          console.log('Erro ao procurar pontos favoritos:', error.response?.data || error.message);
+          Alert.alert('Erro', 'Não foi possivel encontrar pontos favoritos');
+        } finally { 
+          setLoading(false);
+        }
+      };
+
+      fetchFavorites();
+    }, []);
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Favorite Points</Text>
-            <FlatList
-                data={favoritePoints}
-                keyExtractor={(item) => item.id}
-                renderItem={renderFavoriteItem}
-            />
 
             <BottomNav navigation={navigation} />
         </View>
