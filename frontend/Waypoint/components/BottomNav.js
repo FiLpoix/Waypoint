@@ -13,7 +13,7 @@ const BottomNav = ({navigation})=>{
                 <Ionicons name="heart" size={24} color="#fff" onPress={() => navigation.navigate("Favorite")} />
                 <Text style={styles.navText}>Favorites</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.navItem}>
+            <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate("Profile")}>
                 <Ionicons name="happy" size={24} color="#fff" />
                 <Text style={styles.navText}>Profile</Text>
             </TouchableOpacity>
