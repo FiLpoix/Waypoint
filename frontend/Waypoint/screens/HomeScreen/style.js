@@ -30,6 +30,7 @@ locationText: {
         color: '#aaa',
         marginLeft: 4,
         fontSize: 12,
+        marginRight: 10,
     },
 searchBar: {
         backgroundColor: '#2D2F3A',

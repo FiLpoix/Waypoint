@@ -8,13 +8,14 @@ import LoginScreen from './screens/LoginScreen'
 import PointDetails from './screens/PointDetails/index';
 import FavoriteScreen from './screens/FavoriteScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import MapScreen from './screens/MapScreen.js';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Register'>
+      <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Cities" component={CitiesScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}}/>
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen name="PointDetails" component={PointDetails} options={{headerShown: false}}/>
         <Stack.Screen name="Favorite" component={FavoriteScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Map" component={MapScreen} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

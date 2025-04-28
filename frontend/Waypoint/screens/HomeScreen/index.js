@@ -12,6 +12,8 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import styles from "./style";
 import api from "../../services/api";
 import BottomNav from "../../components/BottomNav";
+import * as Location from 'expo-location';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ({ navigation }) {
   const [points, setPoints] = useState([]);
@@ -20,6 +22,22 @@ export default function ({ navigation }) {
     points: true,
     categories: true,
   });
+  const [userLocation, setUserLocation] = useState("Teresina, Piauí");
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const storedUsername = await AsyncStorage.getItem('username');
+        if (storedUsername) {
+          setUsername(storedUsername);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar usuário:', error);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     async function fetchPoints() {
@@ -44,7 +62,35 @@ export default function ({ navigation }) {
       }
     }
 
+    async function fetchLocation() {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          console.error('Permissão para localização negada');
+          return;
+        }
+  
+        let location = await Location.getCurrentPositionAsync({});
+        const { latitude, longitude } = location.coords;
+  
+        let reverseGeocode = await Location.reverseGeocodeAsync({ latitude, longitude });
+        console.log(reverseGeocode)
+  
+        if (reverseGeocode.length > 0) {
+          const info = reverseGeocode[0];
+
+          const cityName = info.city || info.subregion || info.region || 'Localização desconhecida';
+          const regionName = info.region || '';
+          
+          setUserLocation(`${cityName}${regionName ? ', ' + regionName : ''}`);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar localização:", error);
+      }
+    }
+  
     Promise.all([fetchPoints(), fetchCategories()]);
+    fetchLocation();
   }, []);
 
   const isLoading = loading.points || loading.categories;
@@ -53,11 +99,16 @@ export default function ({ navigation }) {
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.welcome}>Hello, User!</Text>
+          <Text style={styles.welcome}>Hello, {username ? username : 'User'}!</Text>
           <Text style={styles.subtitle}>Explore new locations!</Text>
           <View style={styles.location}>
             <Ionicons name="location-outline" size={16} color="#aaa" />
-            <Text style={styles.locationText}>Teresina, Piauí</Text>
+            <Text style={styles.locationText}>{userLocation}</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Map")}
+              style={styles.mapButton} >
+                 <Ionicons name="map-outline" size={16} color='#aaa' /> 
+            </TouchableOpacity>
           </View>
         </View>
         <Ionicons name="person-circle-outline" size={32} color="#fff" />
