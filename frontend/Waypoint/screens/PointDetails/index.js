@@ -78,6 +78,10 @@ const PointDetails = ({ route, navigation }) => {
     }
   };
 
+  const handleCommentPress = () => {
+    navigation.navigate('Rating', { point, userId }); 
+  };
+
   return (
     <View style={styles.pageContainer}>
     <ScrollView contentContainerStyle={styles.container}>
@@ -91,7 +95,7 @@ const PointDetails = ({ route, navigation }) => {
                 size={30}
                 color={liked ? "red" : "#fff"} />
             </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
+          <TouchableOpacity style={styles.iconButton} onPress={handleCommentPress}>
             <FontAwesome name="comment-o" size={30} color="#fff" />
           </TouchableOpacity>
         </View>

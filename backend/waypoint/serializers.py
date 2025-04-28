@@ -1,7 +1,7 @@
 from django.urls import reverse
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import City, Category, TouristPoint, Favorite
+from .models import City, Category, Rating, TouristPoint, Favorite
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,4 +39,9 @@ class TouristPointSerializer(serializers.ModelSerializer):
 class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorite
+        fields = '__all__'
+
+class RatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rating
         fields = '__all__'
