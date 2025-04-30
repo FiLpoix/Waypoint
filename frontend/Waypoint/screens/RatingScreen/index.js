@@ -1,9 +1,10 @@
 // RatingScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Alert, TouchableOpacity } from 'react-native';
 import StarRating from 'react-native-star-rating-widget';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../services/api';
+import styles from './style';
 
 export default function RatingScreen({ route, navigation }) {
   const { point, userId } = route.params;
@@ -56,40 +57,22 @@ export default function RatingScreen({ route, navigation }) {
         onChange={setScore}
         starSize={40}
         color="#FFD700"
+        starStyle={{ marginHorizontal: 3 }}
       />
 
       <TextInput
         style={styles.input}
         placeholder="Escreva seu comentário (opcional)"
+        placeholderTextColor="#888"
         value={comment}
         onChangeText={setComment}
         multiline
         numberOfLines={4}
       />
 
-      <Button title="Enviar Avaliação" onPress={handleSubmit} color="#007BFF" />
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <Text style={styles.buttonText}>Enviar Avaliação</Text>
+      </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  input: {
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 10,
-    marginVertical: 20,
-    textAlignVertical: 'top',
-  },
-});
