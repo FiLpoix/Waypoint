@@ -10,7 +10,7 @@ import FavoriteScreen from './screens/FavoriteScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import MapScreen from './screens/MapScreen';
 import RatingScreen from './screens/RatingScreen';
-import AddRatingScreen from './screens/AddRatingScreen';
+import Categories from './screens/Categories';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Map" component={MapScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Rating" component={RatingScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Categories" component={Categories} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

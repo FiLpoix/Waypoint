@@ -130,7 +130,10 @@ export default function ({ navigation }) {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity style={styles.categoryBox}>
+            <TouchableOpacity style={styles.categoryBox} onPress={() => navigation.navigate("Categories", { 
+              categoryId: Number(item.id), 
+              categoryName: item.tipo 
+            })}>
               <Image source={{ uri: item.icon }} style={styles.categoryImage} />
               <Text style={styles.categoryText}>{item.tipo}</Text>
             </TouchableOpacity>
