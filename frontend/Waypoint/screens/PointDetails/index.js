@@ -16,7 +16,7 @@ const PointDetails = ({ route, navigation }) => {
     const checkFavoriteStatus = async () => {
       try {
         const token = await AsyncStorage.getItem('access_token');
-        const user = await AsyncStorage.getItem('user_id'); // Assumindo que você armazena o ID do usuário
+        const user = await AsyncStorage.getItem('user_id');
         
         if (token && user) {
           setUserId(user);
@@ -48,10 +48,9 @@ const PointDetails = ({ route, navigation }) => {
         }
 
         if (!liked) {
-          // Adicionar aos favoritos
           const response = await api.post('/favorites/', {
             tourist_point: point.id,
-            user: user // Adicionando o ID do usuário
+            user: user
           }, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -61,8 +60,6 @@ const PointDetails = ({ route, navigation }) => {
           console.log('Dados recebidos:', response.data);
           Alert.alert('Sucesso', 'Ponto favoritado com sucesso!')
         } else {
-          // Remover dos favoritos (opcional)
-          // Você precisaria do ID do favorito para deletar
           const response = await api.delete(`/favorites/${favoriteId}/`, {
             headers: {
               Authorization: `Bearer ${token}`,

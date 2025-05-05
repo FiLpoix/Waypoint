@@ -23,7 +23,6 @@ export default function MapScreen() {
       const currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation);
 
-      // Fetch dos pontos turísticos (ou o que quiser)
       fetchPointsFromAPI();
 
       setLoading(false);
@@ -56,10 +55,8 @@ export default function MapScreen() {
 
   return (
     <MapView style={styles.map} initialRegion={region} showsUserLocation>
-      {/* Marker da localização do usuário */}
       <Marker coordinate={region} title="Você está aqui" />
 
-      {/* Markers vindos do endpoint */}
       {points.map((point) => (
         <Marker
           key={point.id}
@@ -69,8 +66,7 @@ export default function MapScreen() {
           }}
           title={point.title}
           description={point.description}
-          pinColor="#556B2F"
-        />
+          pinColor="#556B2F" />
       ))}
     </MapView>
   );

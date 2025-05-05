@@ -11,7 +11,7 @@ import {
 import styles from "./RegisterScreen/style";
 import api from "../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { jwtDecode } from "jwt-decode"; // Importação corrigida
+import { jwtDecode } from "jwt-decode";
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -20,7 +20,6 @@ export default function LoginScreen({ navigation }) {
 
   const decodeToken = (token) => {
     try {
-      // Verificação adicional para garantir que o token é válido
       if (!token || typeof token !== 'string') {
         throw new Error("Token inválido");
       }
@@ -46,16 +45,16 @@ export default function LoginScreen({ navigation }) {
       
       if (response.status === 200) {
         const { access, refresh } = response.data;
-        console.log("Token recebido:", access); // Para debug
+        console.log("Token recebido:", access);
 
         if (!access) {
           throw new Error("Token de acesso não recebido");
         }
 
         const decodedToken = decodeToken(access);
-        console.log("Token decodificado:", decodedToken); // Para debug
+        console.log("Token decodificado:", decodedToken);
 
-        // Verificação alternativa para obter o user_id
+
         const userId = decodedToken?.user_id || decodedToken?.sub;
         if (!userId) {
           throw new Error("ID do usuário não encontrado no token");

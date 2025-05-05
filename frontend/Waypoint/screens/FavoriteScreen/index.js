@@ -35,7 +35,6 @@ const FavoriteScreen = ({ navigation }) => {
       });
       const favoritesRaw = response.data;
 
-      // Buscar os detalhes de cada ponto turístico
       const detailedFavorites = await Promise.all(
         favoritesRaw.map(async (fav) => {
           try {
@@ -45,7 +44,7 @@ const FavoriteScreen = ({ navigation }) => {
   
             return {
               id: fav.id,
-              tourist_point: pointRes.data, // objeto completo
+              tourist_point: pointRes.data,
             };
           } catch (err) {
             console.error("Erro ao buscar ponto:", err.message);
