@@ -49,7 +49,7 @@ Editar
 git clone https://github.com/FiLpoix/Waypoint.git
 
 # Acesse a pasta do projeto
-cd Waypoint
+cd Waypoint/frontend/Waypoint
 
 # Instale as dependências
 npm install
