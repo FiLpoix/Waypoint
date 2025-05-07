@@ -28,14 +28,8 @@ export default function ProfileScreen({ navigation }) {
       <View style={styles.content}>
         <Text style={styles.title}>Meu Perfil</Text>
 
-        <View style={styles.card}>
-          <FontAwesome name="user-circle" size={80} color="#555" style={styles.icon} />
+          <FontAwesome name="user-circle" size={80} color="#fff" style={styles.icon} />
           <Text style={styles.username}>{username || 'Usuário'}</Text>
-
-          <TouchableOpacity style={styles.optionButton}>
-            <FontAwesome name="edit" size={20} color="#4285F4" />
-            <Text style={styles.optionText}>Editar Perfil</Text>
-          </TouchableOpacity>
 
           <TouchableOpacity style={styles.optionButton} onPress={handleLogout}>
             <FontAwesome name="sign-out" size={20} color="#EA4335" />
@@ -45,7 +39,6 @@ export default function ProfileScreen({ navigation }) {
           <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
             <Text style={styles.backButtonText}>Voltar para Home</Text>
           </TouchableOpacity>
-        </View>
       </View>
 
       <BottomNav navigation={navigation} />
@@ -72,15 +65,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
   },
-  card: {
-    backgroundColor: '#f9f9f9',
-    padding: 20,
-    borderRadius: 12,
-    elevation: 2,
-    width: '100%',
-    maxWidth: 400,
-    alignItems: 'center',
-  },
   icon: {
     marginBottom: 12,
   },
@@ -88,20 +72,24 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 24,
-    color: '#333',
+    color: '#fff',
   },
   optionButton: {
+    marginTop: 20,
+    marginBottom: 10,
+    backgroundColor: '#2D2F3A',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    width: '60%',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    width: '100%',
+    justifyContent: 'center',
   },
   optionText: {
     marginLeft: 12,
     fontSize: 16,
-    color: '#333',
+    color: '#fff',
   },
   backButton: {
     marginTop: 20,
