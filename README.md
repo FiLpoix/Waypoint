@@ -1,81 +1,66 @@
-📍 Touristei App
-Um aplicativo mobile desenvolvido em React Native que permite aos usuários explorar, visualizar e favoritar pontos turísticos, categorizados por interesses, com funcionalidades de login e navegação intuitiva.
+# 📍 Touristei - Tourist App
 
-✨ Funcionalidades
-📂 Categorias
-Visualize pontos turísticos agrupados por categoria (ex.: Cultura, Aventura).
+Um aplicativo mobile desenvolvido em **React Native** que permite aos usuários explorar, visualizar e favoritar pontos turísticos, categorizados por interesses, com funcionalidades de login, mapa e navegação intuitiva.
 
-🖼️ Lista de Pontos Turísticos
-Exibição de pontos turísticos com imagens, título e descrição resumida.
+## ✨ Funcionalidades
 
-❤️ Favoritos
-Adicione pontos turísticos à sua lista de favoritos e acesse-os rapidamente.
+* 📂 **Categorias**
+  Visualize pontos turísticos agrupados por categoria (ex.: Cultura, Aventura, Gastronomia).
 
-👤 Perfil do Usuário
-Visualize o nome do usuário e efetue logout com facilidade.
+* 🖼️ **Lista de Pontos Turísticos**
+  Exibição de pontos turísticos com imagens, título e descrição.
 
-🔍 Busca por Cidade (Em desenvolvimento)
-Filtro para buscar pontos turísticos por cidade.
+* ❤️ **Favoritos**
+  Adicione pontos turísticos à sua lista de favoritos e acesse-os rapidamente.
 
-🛠️ Tecnologias
-React Native
+* 👤 **Perfil do Usuário**
+  Visualize o nome do usuário e efetue logout.
 
-Expo
+* 🗺️ **Mapa Interativo**
+  Exiba pontos turísticos próximos com a localização atual.
 
-Axios (para requisições API)
+* ✍️ **Avaliação de Pontos**
+  Avalie e comente sobre os pontos turísticos visitados.
 
-AsyncStorage (armazenamento local de token e username)
+## 🛠️ Tecnologias Utilizadas
 
-React Navigation (navegação entre telas)
+* **React Native (Expo)**
+* **Axios** (Requisições API)
+* **AsyncStorage** (Armazenamento local)
+* **React Navigation** (Navegação entre telas)
+* **React Native Maps** (Exibição de mapas)
+* **Expo Icons (FontAwesome, Ionicons)**
 
-Expo Icons (FontAwesome, Ionicons)
+## ⚙️ Instalação e Execução
 
-📱 Telas
-Home: Lista geral de pontos turísticos
-
-Categorias: Pontos turísticos filtrados por categoria
-
-Favoritos: Lista de pontos turísticos marcados como favoritos
-
-Perfil: Exibe o usuário logado e permite logout
-
-Detalhes do Ponto Turístico: Detalhes completos do ponto (imagem, descrição, etc.)
-
-⚙️ Instalação e Execução
-bash
-Copiar
-Editar
+```bash
 # Clone o repositório
 git clone https://github.com/FiLpoix/Waypoint.git
 
 # Acesse a pasta do projeto
-cd Waypoint/frontend/Waypoint
+cd waypoint/frontend/Waypoint
 
 # Instale as dependências
 npm install
 
 # Inicie o projeto (via Expo)
 npx expo start
-Observação: Certifique-se de ter o Expo CLI instalado (npm install -g expo-cli)
+```
 
-🔐 Configuração do Backend
+> **Requisito:** Ter **Expo CLI** instalado (`npm install -g expo-cli`)
+
+## 🔐 Configuração da API
+
 Este app consome uma API REST que fornece:
 
-Pontos turísticos (/tourist_points)
+* Pontos turísticos (`/tourist_points`)
+* Categorias (`/categories`)
+* Favoritos (`/favorites`) *(Requer token JWT)*
 
-Categorias (/categories)
+Edite a baseURL no arquivo:
 
-Favoritos (/favorites) (Requer token de autenticação JWT)
-
-Você pode configurar a URL da API no arquivo:
-
-bash
-Copiar
-Editar
-/services/api.js
-js
-Copiar
-Editar
+```js
+// services/api.js
 import axios from 'axios';
 
 const api = axios.create({
@@ -83,46 +68,53 @@ const api = axios.create({
 });
 
 export default api;
-🗂️ Estrutura de Pastas
-bash
-Copiar
-Editar
-/Waypoint
-├── assets/                # Imagens e outros recursos estáticos
+```
+
+## 🗂️ Estrutura de Pastas
+
+```
+📂 Waypoint
+├── assets/                   # Imagens e outros recursos estáticos
 ├── components/
-│   └── BottomNav.js       # Componente de navegação inferior
+│   └── BottomNav.js          # Componente de navegação inferior
 ├── screens/
 │   ├── Categories/
-│       └── index.js       # Tela de pontos por categoria
-│       └── style.js
+│   │   ├── index.js          # Tela de pontos por categoria
+│   │   └── style.js
 │   ├── CitiesScreen/
-│       └── index.js       # Tela de cidades (lista de cidades)
-│       └── style.js
+│   │   ├── index.js          # Tela de cidades (lista de cidades)
+│   │   └── style.js
 │   ├── FavoriteScreen/
-│       └── index.js       # Tela de favoritos
+│   │   ├── index.js          # Tela de favoritos
+│   │   └── style.js
 │   ├── HomeScreen/
-│       └── index.js       # Tela inicial (Home)
-│       └── style.js
+│   │   ├── index.js          # Tela inicial (Home)
+│   │   └── style.js
 │   ├── MapScreen/
-│       └── index.js       # Tela com mapa e pontos turísticos
+│   │   └── index.js          # Tela com mapa e pontos turísticos
 │   ├── PointDetails/
-│       └── index.js       # Detalhes de um ponto turístico
-│       └── style.js
+│   │   ├── index.js          # Detalhes de um ponto turístico
+│   │   └── style.js
 │   ├── ProfileScreen/
-│       └── index.js       # Tela de perfil do usuário
+│   │   ├── index.js          # Tela de perfil do usuário
+│   │   └── style.js
 │   ├── RatingScreen/
-│       └── index.js       # Tela de avaliação de pontos turísticos
-│       └── style.js
+│   │   ├── index.js          # Tela de avaliação de pontos turísticos
+│   │   └── style.js
 │   ├── RegisterScreen/
-│       └── index.js       # Tela de registro de usuário
-│       └── style.js
-│   └── LoginScreen.js     # Tela de login
+│   │   ├── index.js          # Tela de registro de usuário
+│   │   └── style.js
+│   └── LoginScreen.js        # Tela de login
 ├── services/
-│   └── api.js             # Configuração de conexão com API
-├── App.js                 # Componente principal do app
-├── app.json               # Configuração do Expo
-├── index.js               # Ponto de entrada do React Native
-├── package.json           # Dependências e scripts do projeto
-└── .gitignore  
-👨‍💻 Contribuindo
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
+│   └── api.js                # Configuração de conexão com API
+├── App.js                    # Componente principal do app
+├── app.json                  # Configuração do Expo
+├── index.js                  # Ponto de entrada do React Native
+├── package.json              # Dependências e scripts do projeto
+└── .gitignore                # Arquivos ignorados pelo Git
+```
+
+## 👨‍💻 Contribuindo
+
+Contribuições são bem-vindas!
+Abra uma *issue* ou envie um *pull request* com melhorias ou correções.
