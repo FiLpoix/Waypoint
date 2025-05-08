@@ -49,8 +49,8 @@ export default function ({ navigation }) {
         <View style={styles.container}>
 
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
-            <Text style={styles.title}>Create</Text>
-            <Text style={styles.title}>Your account</Text>
+            <Text style={styles.title}>Crie</Text>
+            <Text style={styles.title}>Sua Conta</Text>
 
             <Text style={styles.label}>Usuário:</Text>
             <TextInput style={styles.input} placeholder="Digite seu nome"
@@ -80,9 +80,9 @@ export default function ({ navigation }) {
                 onChangeText={setConfirmPassword} />
 
             <View style={styles.signInText}>
-                <Text style={{ color: '#fff' }}>Already have an account?</Text>
+                <Text style={{ color: '#fff' }}>Já possui conta?</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Text style={{ color: '#B5838D', marginLeft: 5 }}>Sign In</Text>
+                    <Text style={{ color: '#B5838D', marginLeft: 5 }}>Login</Text>
                 </TouchableOpacity>
             </View>
 

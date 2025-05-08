@@ -151,7 +151,7 @@ const PointDetails = ({ route, navigation }) => {
         </View>
 
         <View style={styles.infoContainer}>
-          <Text style={styles.infoLabel}>Location:</Text>
+          <Text style={styles.infoLabel}>Localização:</Text>
           <Text style={styles.infoText}>{point.location_lat}</Text>
           <Text style={styles.infoText}>{point.location_long}</Text>
         </View>

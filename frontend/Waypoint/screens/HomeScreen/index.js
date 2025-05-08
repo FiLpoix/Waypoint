@@ -99,8 +99,8 @@ export default function ({ navigation }) {
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.welcome}>Hello, {username ? username : 'User'}!</Text>
-          <Text style={styles.subtitle}>Explore new locations!</Text>
+          <Text style={styles.welcome}>Olá, {username ? username : 'User'}!</Text>
+          <Text style={styles.subtitle}>Explore novos locais!</Text>
           <View style={styles.location}>
             <Ionicons name="location-outline" size={16} color="#aaa" />
             <Text style={styles.locationText}>{userLocation}</Text>
@@ -111,7 +111,9 @@ export default function ({ navigation }) {
             </TouchableOpacity>
           </View>
         </View>
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
         <Ionicons name="person-circle-outline" size={32} color="#fff" />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.searchBar}>
@@ -123,7 +125,7 @@ export default function ({ navigation }) {
         />
       </View>
 
-      <Text style={styles.sectionTitle}>Categories</Text>
+      <Text style={styles.sectionTitle}>Categorias</Text>
       <FlatList
         horizontal
         data={[...categories]}
@@ -143,9 +145,9 @@ export default function ({ navigation }) {
         contentContainerStyle={styles.categories}
       />
       <View style={styles.recommendedHeader}>
-        <Text style={styles.sectionTitle}>Recommended</Text>
+        <Text style={styles.sectionTitle}>Recomendados</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Cities")}>
-          <Text style={styles.seeAll}>See all</Text>
+          <Text style={styles.seeAll}>Veja todos</Text>
         </TouchableOpacity>
       </View>
       <ScrollView

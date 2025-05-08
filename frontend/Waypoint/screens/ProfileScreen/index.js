@@ -37,7 +37,7 @@ export default function ProfileScreen({ navigation }) {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
-            <Text style={styles.backButtonText}>Voltar para Home</Text>
+            <Text style={styles.backButtonText}>Voltar para Início</Text>
           </TouchableOpacity>
       </View>
 

@@ -85,8 +85,8 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Image source={require("../assets/logo.png")} style={styles.logo} />
-      <Text style={styles.title}>Login To</Text>
-      <Text style={styles.title}>Your Account</Text>
+      <Text style={styles.title}>Faça o Login</Text>
+      <Text style={styles.title}>Na sua conta</Text>
 
       <Text style={styles.label}>Usuário:</Text>
       <TextInput
@@ -109,9 +109,9 @@ export default function LoginScreen({ navigation }) {
       />
 
       <View style={styles.signInText}>
-        <Text style={{ color: "#fff" }}>Already have an account?</Text>
+        <Text style={{ color: "#fff" }}>Ainda não possui conta?</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-          <Text style={{ color: "#B5838D", marginLeft: 5 }}>Sign Up</Text>
+          <Text style={{ color: "#B5838D", marginLeft: 5 }}>Cadastro</Text>
         </TouchableOpacity>
       </View>
 

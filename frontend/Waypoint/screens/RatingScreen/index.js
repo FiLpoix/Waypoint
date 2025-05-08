@@ -5,6 +5,7 @@ import StarRating from 'react-native-star-rating-widget';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../services/api';
 import styles from './style';
+import BottomNav from '../../components/BottomNav';
 
 export default function RatingScreen({ route, navigation }) {
   const { point, userId } = route.params;
